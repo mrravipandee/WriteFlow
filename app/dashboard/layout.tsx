@@ -8,7 +8,7 @@ const layout = ({ children, }: Readonly<{ children: React.ReactNode; }>) => {
             <div className='md:w-64 hidden md:block fixed'>
                 <SideNav />
             </div>
-            <div className='md:ml-64 '>
+            <div className='md:ml-64'>
                 <Header />
                 {children}
             </div>

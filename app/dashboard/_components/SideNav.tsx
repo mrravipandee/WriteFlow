@@ -16,7 +16,7 @@ const SideNav = () => {
   ]
 
   return (
-    <div className='h-screen p-5 shadow-sm border'>
+    <div className='h-screen p-5 shadow-sm border '>
       <div className='flex justify-center'>
         <Image
           src={'/logo.svg'}
@@ -32,7 +32,7 @@ const SideNav = () => {
         {menuItems.map((item, index) => (
           <div
             key={index}
-            className={`flex gap-2 mb-2 p-2 hover:bg-primary hover:text-white rounded-lg cursor-pointer items-center ${pathname === item.path ? 'bg-primary text-white' : ''
+            className={`flex gap-2 mb-2 p-2 hover:bg-primary hover:text-white rounded-lg cursor-pointer items-center font-medium ${pathname === item.path ? 'bg-primary text-white' : ''
               }`}
           >
             <item.icon />
