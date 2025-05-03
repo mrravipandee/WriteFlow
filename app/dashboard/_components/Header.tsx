@@ -3,8 +3,8 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className='p-5 shadow-sm border-b-2 flex justify-between'>
-      <div className="flex gap-2 items-center p-2 border rounded-md max-w-lg item-center">
+    <div className='p-5 shadow-sm border-b-2 flex justify-between bg-white'>
+      <div className="flex gap-2 items-center p-2 border rounded-md max-w-lg item-center bg-white">
         <Search />
         <input
           type="text"
