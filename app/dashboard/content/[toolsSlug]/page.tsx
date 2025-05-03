@@ -27,11 +27,11 @@ const CreateNewContent = ({ params }: PROPS) => {
   }
 
   // Debugging: Show matching info in console
-  useEffect(() => {
-    console.log('Slug from URL:', slug);
-    console.log('Available template slugs:', Templates.map(item => item.slug));
-    console.log('Selected Template:', selectedTemplate);
-  }, [slug, selectedTemplate]);
+  // useEffect(() => {
+  //   console.log('Slug from URL:', slug);
+  //   console.log('Available template slugs:', Templates.map(item => item.slug));
+  //   console.log('Selected Template:', selectedTemplate);
+  // }, [slug, selectedTemplate]);
 
   if (!selectedTemplate) {
     return (

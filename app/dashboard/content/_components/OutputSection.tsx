@@ -1,11 +1,48 @@
-import React from 'react'
+'use client';
+
+import React, { useRef } from 'react';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+import { Button } from '@/components/ui/button';
+import { Copy } from 'lucide-react';
 
 const OutputSection = () => {
-  return (
-    <div>
-      OutputSection
-    </div>
-  )
-}
+  const editorRef = useRef<Editor>(null);
 
-export default OutputSection
+  const handleCopy = () => {
+    const editorInstance = editorRef.current?.getInstance();
+    const markdown = editorInstance?.getMarkdown();
+
+    if (markdown) {
+      navigator.clipboard.writeText(markdown).then(() => {
+        console.log('✅ Copied to clipboard');
+      });
+    }
+  };
+
+  return (
+    <div className="bg-white shadow-lg border rounded-lg">
+      <div className="flex justify-between items-center p-5">
+        <h2 className="font-bold text-lg">Your Result</h2>
+        <Button onClick={handleCopy} className="flex items-center gap-2">
+          <Copy className="w-4 h-4" />
+          Copy
+        </Button>
+      </div>
+
+      <Editor
+        ref={editorRef}
+        initialValue="Your content will be generated here..."
+        height="580px"
+        initialEditType="wysiwyg"
+        useCommandShortcut={true}
+        onChange={() => {
+          const value = editorRef.current?.getInstance().getMarkdown();
+          console.log('Content changed:', value);
+        }}
+      />
+    </div>
+  );
+};
+
+export default OutputSection;
