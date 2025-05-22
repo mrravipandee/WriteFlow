@@ -1,13 +1,29 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 
-const OutputSection = () => {
+interface props {
+  aiOutput: string;
+}
+
+const OutputSection = ({ aiOutput }: props) => {
   const editorRef = useRef<Editor>(null);
+
+  useEffect(() => {
+    const editorInstance = editorRef.current?.getInstance();
+
+    // Ensure aiOutput is a string before passing to setMarkdown
+    if (editorInstance && typeof aiOutput === 'string') {
+      editorInstance.setMarkdown(aiOutput);
+    } else {
+      console.warn("⚠️ aiOutput is not a string:", aiOutput);
+    }
+  }, [aiOutput]);
+
 
   const handleCopy = () => {
     const editorInstance = editorRef.current?.getInstance();
