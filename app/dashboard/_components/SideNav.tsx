@@ -4,6 +4,7 @@ import { FolderClock, Home, Settings, Wallet } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import UsageTrack from './UsageTrack'
 
 const SideNav = () => {
   const pathname = usePathname()
@@ -16,7 +17,7 @@ const SideNav = () => {
   ]
 
   return (
-    <div className='h-screen p-5 shadow-sm border bg-white'>
+    <div className='h-screen relative p-5 shadow-sm border bg-white'>
       <div className='flex justify-center'>
         <Image
           src={'/logo.svg'}
@@ -39,6 +40,10 @@ const SideNav = () => {
             <h2>{item.name}</h2>
           </div>
         ))}
+      </div>
+
+      <div className='absolute bottom-14 w-full left-0'>
+        <UsageTrack />
       </div>
     </div>
   )
