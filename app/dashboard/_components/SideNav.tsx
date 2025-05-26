@@ -2,6 +2,7 @@
 
 import { FolderClock, Home, Settings, Wallet } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import UsageTrack from './UsageTrack'
@@ -31,14 +32,16 @@ const SideNav = () => {
 
       <div className='mt-3'>
         {menuItems.map((item, index) => (
-          <div
-            key={index}
-            className={`flex gap-2 mb-2 p-2 hover:bg-primary hover:text-white rounded-lg cursor-pointer items-center font-medium ${pathname === item.path ? 'bg-primary text-white' : ''
+          <Link key={index} href={item.path}>
+            <div
+              className={`flex gap-2 mb-2 p-2 hover:bg-primary hover:text-white rounded-lg cursor-pointer items-center font-medium ${
+                pathname === item.path ? 'bg-primary text-white' : ''
               }`}
-          >
-            <item.icon />
-            <h2>{item.name}</h2>
-          </div>
+            >
+              <item.icon />
+              <h2>{item.name}</h2>
+            </div>
+          </Link>
         ))}
       </div>
 
@@ -49,4 +52,4 @@ const SideNav = () => {
   )
 }
 
-export default SideNav
+export default SideNav;
