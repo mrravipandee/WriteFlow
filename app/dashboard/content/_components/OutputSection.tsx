@@ -5,6 +5,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface props {
   aiOutput: string;
@@ -16,7 +17,6 @@ const OutputSection = ({ aiOutput }: props) => {
   useEffect(() => {
     const editorInstance = editorRef.current?.getInstance();
 
-    // Ensure aiOutput is a string before passing to setMarkdown
     if (editorInstance && typeof aiOutput === 'string') {
       editorInstance.setMarkdown(aiOutput);
     } else {
@@ -24,20 +24,22 @@ const OutputSection = ({ aiOutput }: props) => {
     }
   }, [aiOutput]);
 
-
   const handleCopy = () => {
     const editorInstance = editorRef.current?.getInstance();
     const markdown = editorInstance?.getMarkdown();
 
     if (markdown) {
       navigator.clipboard.writeText(markdown).then(() => {
-        console.log('✅ Copied to clipboard');
+        toast.success('Copied to clipboard!');
+      }).catch(() => {
+        toast.error('Failed to copy');
       });
     }
   };
 
   return (
     <div className="bg-white shadow-lg border rounded-lg">
+      <Toaster position="top-right" />
       <div className="flex justify-between items-center p-5">
         <h2 className="font-bold text-lg">Your Result</h2>
         <Button onClick={handleCopy} className="flex items-center gap-2">

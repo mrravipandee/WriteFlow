@@ -2,14 +2,17 @@
 
 import { Button } from '@/components/ui/button'
 import { useUser } from '@clerk/nextjs'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { db } from '@/utils/db'
 import { AIOutput } from '@/utils/schema'
 import { eq } from 'drizzle-orm'
+import { TotalUsagesContext } from '@/app/(context)/TotalUsagesContext'
 
 const UsageTrack = () => {
-  const { user } = useUser()
-  const [totalUsage, setTotalUsage] = useState<number>(0)
+  const { user } = useUser();
+  // const [totalUsage, setTotalUsage] = useState<number>(0);
+  const { totalUsage, setTotalUsage } = useContext(TotalUsagesContext);
+
 
   useEffect(() => {
     if (user) {
@@ -50,7 +53,7 @@ const UsageTrack = () => {
             style={{ width: `${percentage}%` }}
           ></div>
         </div>
-        <h2 className="text-sm my-2">{totalUsage} / 10000 credits used</h2>
+        <h2 className="text-sm my-2">{totalUsage} / 10,000 credits used</h2>
       </div>
       <Button className="w-full mt-3 text-primary" variant="outline">
         Upgrade

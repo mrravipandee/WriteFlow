@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'next/navigation';
 import moment from 'moment';
 import FormSection from '../_components/FormSection';
@@ -14,6 +14,9 @@ import { db } from '@/utils/db';
 import { AIOutput } from '@/utils/schema';
 import { useUser } from '@clerk/nextjs';
 import { TEMPLATE } from '../../_components/TemplateTools';
+import { TotalUsagesContext } from '@/app/(context)/TotalUsagesContext';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const CreateNewContent = () => {
   const params = useParams();
@@ -24,6 +27,8 @@ const CreateNewContent = () => {
   const [selectedTemplate, setSelectedTemplate] = useState<TEMPLATE | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [generatedContent, setGeneratedContent] = useState<string>('');
+  const { totalUsage, setTotalUsage } = useContext(TotalUsagesContext);
+  const router = useRouter();
 
   useEffect(() => {
     const foundTemplate = Templates.find(
@@ -34,17 +39,28 @@ const CreateNewContent = () => {
 
 
   const GenerateAIContent = async (formData: any) => {
+    // Check if the user has reached their usage limit
+    if (totalUsage >= 10000) {
+      toast.error('You have reached your usage limit for free used. Please upgrade your plan to continue generating content.');
+      router.push('/dashboard/billing');
+      return ;
+    }
+
+    // Check if a template is selected
     if (!selectedTemplate) return;
 
+    // Check if the user is logged in and has a verified email
     if (!user || !user.primaryEmailAddress?.emailAddress) {
       alert('You must be logged in with a verified email to generate content.');
       return;
     }
 
+    // Check if the form data is valid
     setLoading(true);
     const selectedPrompt = selectedTemplate.aiPrompt;
     const finalAIPrompt = JSON.stringify(formData) + ', ' + selectedPrompt;
 
+    // Log the AI prompt for debugging
     let aiOutput = '';
     try {
       const result = await chatSession.sendMessage(finalAIPrompt);
@@ -91,6 +107,7 @@ const CreateNewContent = () => {
 
   return (
     <div className="p-10">
+      <Toaster position="top-right" />
       <Link href="/dashboard">
         <Button><ArrowLeft /> Back</Button>
       </Link>

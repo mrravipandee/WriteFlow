@@ -76,12 +76,19 @@ const HistoryTable: React.FC<Props> = ({ historyList, templates }) => {
                   <span className="text-[14px]">{getTemplateName(item.templateSlug)}</span>
                 </div>
               </td>
-              <td className="py-2 px-4 text-[14px]">
+              {/* <td className="py-2 px-4 text-[14px]">
                 {new Date(item.createdAt).toLocaleDateString()}
+              </td> */}
+              <td className="py-2 px-4 text-[14px]">
+                {new Intl.DateTimeFormat('en-GB', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                }).format(new Date(item.createdAt))}
               </td>
               <td className="py-2 px-4 max-w-md truncate text-[14px]">{item.aiResponse}</td>
               <td className="py-2 px-4 text-[14px]">
-                {item.aiResponse?.length} 
+                {item.aiResponse?.length}
               </td>
               <td className="py-2 px-4">
                 <Button size="sm" variant="ghost" onClick={() => handleCopy(item.aiResponse)}>
