@@ -1,9 +1,11 @@
+// next.config.js or next.config.ts (for TypeScript projects)
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
-    domains: ["cdn-icons-png.flaticon.com", "cdn-icons-png.flaticon.com"],
+    domains: ["cdn-icons-png.flaticon.com"],
   },
 };
 
