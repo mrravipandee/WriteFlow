@@ -14,23 +14,24 @@ const UsageTrack = () => {
   const { user } = useUser()
   const { totalUsage, setTotalUsage } = useContext(TotalUsagesContext)
   const { UserSubscription, setUserSubscription } = useContext(UserSubscriptionContext)
-  const { updateCreditUsage, setUpdateCreditUsage } = useContext(UpdateCreditUsageContext);
+  const { updateCreditUsage } = useContext(UpdateCreditUsageContext)
 
   useEffect(() => {
-    if (user) {
-      getData()
-      checkUserSubscription()
-    }
-  }, [user]);
-
-  useEffect(() => {
-    user && getData();
-  }, [updateCreditUsage && user]);
-
-  const getData = async () => {
     const email = user?.primaryEmailAddress?.emailAddress
-    if (!email) return;
+    if (!email) return
 
+    getData(email)
+    checkUserSubscription(email)
+  }, [user])
+
+  useEffect(() => {
+    const email = user?.primaryEmailAddress?.emailAddress
+    if (!email || !updateCreditUsage) return
+
+    getData(email)
+  }, [updateCreditUsage, user])
+
+  const getData = async (email: string) => {
     try {
       const result = await db
         .select()
@@ -48,24 +49,19 @@ const UsageTrack = () => {
     }
   }
 
-
-  const checkUserSubscription = async () => {
+  const checkUserSubscription = async (email: string) => {
     try {
       const result = await db
         .select()
         .from(UserSubTable)
         .where(
           and(
-            eq(UserSubTable.email, user?.primaryEmailAddress?.emailAddress),
-            eq(UserSubTable.active, true) // assuming `active` field exists
+            eq(UserSubTable.email, email),
+            eq(UserSubTable.active, true)
           )
         )
 
-      if (result.length > 0) {
-        setUserSubscription(true)
-      } else {
-        setUserSubscription(false)
-      }
+      setUserSubscription(result.length > 0)
     } catch (error) {
       console.error('Error checking subscription:', error)
     }
@@ -95,4 +91,4 @@ const UsageTrack = () => {
   )
 }
 
-export default UsageTrack;
+export default UsageTrack
