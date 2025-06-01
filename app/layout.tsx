@@ -16,7 +16,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "WriteFlow",
+  title: "WriteFlow - Where Words Meet Intelligence.",
   description: "AI-powered content creation made effortless",
 };
 

@@ -1,46 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { db } from '@/utils/db';
-import { UserSubscription } from '@/utils/schema';
+import { UserSubscription as UserSubscriptionTable } from '@/utils/schema';
 import { useUser } from '@clerk/nextjs';
 import moment from 'moment';
+import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
 
 declare global {
   interface Window {
     Razorpay: any;
   }
 }
-
-const plans = [
-  {
-    name: 'Free',
-    price: 'Rs. 0',
-    period: '/month',
-    features: [
-      '10,000 Words/Month',
-      '50+ Content Templates',
-      'Unlimited Download & Copy',
-      '1 Month of History',
-    ],
-    isActive: true,
-  },
-  {
-    name: 'Monthly',
-    price: 'Rs. 299',
-    period: '/month',
-    features: [
-      '1,00,000 Words/Month',
-      '50+ Content Templates',
-      'Unlimited Download & Copy',
-      '1 Year of History',
-    ],
-    isActive: false,
-  },
-];
 
 const loadRazorpayScript = (): Promise<boolean> => {
   return new Promise((resolve) => {
@@ -57,6 +31,35 @@ const loadRazorpayScript = (): Promise<boolean> => {
 const Billing = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
+  const { UserSubscription, setUserSubscription } = useContext(UserSubscriptionContext);
+
+  const plans = [
+    {
+      name: 'Free',
+      price: 'Rs. 0',
+      period: '/month',
+      features: [
+        '10,000 Words/Month',
+        '50+ Content Templates',
+        'Unlimited Download & Copy',
+        '1 Month of History',
+      ],
+      isActive: !UserSubscription,  // Free active if no subscription
+    },
+    {
+      name: 'Monthly',
+      price: 'Rs. 109',
+      period: '/month',
+      features: [
+        '1,00,000 Words/Month',
+        '50+ Content Templates',
+        'Unlimited Download & Copy',
+        '1 Year of History',
+      ],
+      isActive: !!UserSubscription,  // Monthly active if subscribed
+    },
+  ];
+
 
   const Subscription = async () => {
     setLoading(true);
@@ -72,7 +75,7 @@ const Billing = () => {
       const res = await axios.post('/api/create-subscription');
       OnPayment(res.data.id);
     } catch (error: any) {
-      console.error("Subscription API error:", error);
+      console.error('Subscription API error:', error);
       setLoading(false);
     }
   };
@@ -84,7 +87,7 @@ const Billing = () => {
       name: 'WriteFlow AI',
       description: 'Monthly Subscription Plan',
       handler: async (response: any) => {
-        console.log("Payment success:", response);
+        console.log('Payment Response:', response);
         if (response?.razorpay_payment_id) {
           await SaveSubscription(response.razorpay_payment_id);
         }
@@ -92,7 +95,7 @@ const Billing = () => {
       },
       modal: {
         ondismiss: () => setLoading(false),
-      }
+      },
     };
 
     const razorpay = new window.Razorpay(options);
@@ -101,18 +104,27 @@ const Billing = () => {
 
   const SaveSubscription = async (paymentId: string) => {
     try {
-      const result = await db.insert(UserSubscription).values({
-        email: user?.primaryEmailAddress?.emailAddress || 'unknown@writeflow.ai',
-        userName: user?.fullName || 'Anonymous',
-        active: true,
+      const email = user?.primaryEmailAddress?.emailAddress || 'unknown@writeflow.ai';
+      const userName = user?.fullName || 'Anonymous';
+      const joinDate = moment().format('DD/MM/YYYY');
+
+      console.log('Saving subscription with:', { email, userName, paymentId, joinDate });
+
+      const result = await db.insert(UserSubscriptionTable).values({
+        email,
+        userName,
         paymentId,
-        joinDate: moment().format('DD/MM/YYYY'),
+        active: true,
+        joinDate,
       });
 
-      console.log("DB Saved:", result);
-      if (result) window.location.reload();
+      console.log('Subscription saved:', result);
+      if (result) {
+        setUserSubscription(true);
+        window.location.reload();
+      }
     } catch (err) {
-      console.error("DB Insert Error:", err);
+      console.error('Error saving subscription:', err);
     }
   };
 
@@ -147,28 +159,32 @@ const Billing = () => {
                 ))}
               </ul>
 
-              <Button
-                variant="outline"
-                className={`w-full mt-6 ${plan.isActive
-                  ? 'bg-gray-600 text-white cursor-default'
-                  : 'hover:bg-purple-600 hover:text-white text-purple-600'
-                  }`}
-                disabled={plan.isActive || loading}
-                onClick={!plan.isActive ? Subscription : undefined}
-              >
-                {plan.isActive ? (
-                  'Current Plan'
-                ) : loading ? (
-                  <span className="flex justify-center items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                    Loading...
-                  </span>
-                ) : (
-                  'Upgrade Plan'
-                )}
-              </Button>
+              {/* Only show button if plan is not "Free" */}
+              {plan.name !== 'Free' && (
+                <Button
+                  variant="outline"
+                  className={`w-full mt-6 ${plan.isActive
+                      ? 'bg-gray-600 text-white cursor-default'
+                      : 'hover:bg-purple-600 hover:text-white text-purple-600'
+                    }`}
+                  disabled={plan.isActive || loading}
+                  onClick={!plan.isActive ? Subscription : undefined}
+                >
+                  {plan.isActive ? (
+                    'Current Plan'
+                  ) : loading ? (
+                    <span className="flex justify-center items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      Loading...
+                    </span>
+                  ) : (
+                    'Upgrade Plan'
+                  )}
+                </Button>
+              )}
             </div>
           ))}
+
         </div>
       </div>
     </div>

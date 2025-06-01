@@ -17,6 +17,8 @@ import { TEMPLATE } from '../../_components/TemplateTools';
 import { TotalUsagesContext } from '@/app/(context)/TotalUsagesContext';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
+import { UpdateCreditUsageContext } from '@/app/(context)/UpdateCreditUsageContext';
 
 const CreateNewContent = () => {
   const params = useParams();
@@ -30,6 +32,9 @@ const CreateNewContent = () => {
   const { totalUsage, setTotalUsage } = useContext(TotalUsagesContext);
   const router = useRouter();
 
+  const { UserSubscription, setUserSubscription } = useContext(UserSubscriptionContext);
+  const {updateCreditUsage, setUpdateCreditUsage} = useContext(UpdateCreditUsageContext);
+
   useEffect(() => {
     const foundTemplate = Templates.find(
       (item) => item.slug.toLowerCase() === slug.toLowerCase()
@@ -38,12 +43,17 @@ const CreateNewContent = () => {
   }, [slug]);
 
 
+  /**
+   * used to generate content from AI
+   * @param formData 
+   * @returns 
+   */
   const GenerateAIContent = async (formData: any) => {
     // Check if the user has reached their usage limit
-    if (totalUsage >= 10000) {
+    if (totalUsage >= 10000 && !UserSubscription) {
       toast.error('You have reached your usage limit for free used. Please upgrade your plan to continue generating content.');
       router.push('/dashboard/billing');
-      return ;
+      return;
     }
 
     // Check if a template is selected
@@ -75,6 +85,7 @@ const CreateNewContent = () => {
       await SaveInDb(formData, selectedTemplate.slug, aiOutput);
       setLoading(false);
     }
+    setUpdateCreditUsage(Date.now())
   };
 
 
