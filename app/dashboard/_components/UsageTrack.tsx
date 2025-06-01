@@ -14,7 +14,7 @@ const UsageTrack = () => {
   const { user } = useUser()
   const { totalUsage, setTotalUsage } = useContext(TotalUsagesContext)
   const { UserSubscription, setUserSubscription } = useContext(UserSubscriptionContext)
-  const {updateCreditUsage, setUpdateCreditUsage} = useContext(UpdateCreditUsageContext);
+  const { updateCreditUsage, setUpdateCreditUsage } = useContext(UpdateCreditUsageContext);
 
   useEffect(() => {
     if (user) {
@@ -24,15 +24,18 @@ const UsageTrack = () => {
   }, [user]);
 
   useEffect(() => {
-    user&&getData();
+    user && getData();
   }, [updateCreditUsage && user]);
 
   const getData = async () => {
+    const email = user?.primaryEmailAddress?.emailAddress
+    if (!email) return;
+
     try {
       const result = await db
         .select()
         .from(AIOutput)
-        .where(eq(AIOutput.createdBy, user?.primaryEmailAddress?.emailAddress))
+        .where(eq(AIOutput.createdBy, email))
 
       let total = 0
       result.forEach((item: any) => {
@@ -44,6 +47,7 @@ const UsageTrack = () => {
       console.error('Error fetching usage:', error)
     }
   }
+
 
   const checkUserSubscription = async () => {
     try {
