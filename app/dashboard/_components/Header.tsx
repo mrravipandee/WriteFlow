@@ -14,7 +14,7 @@ const Header = () => {
         />
       </div>
       <div className='flex gap-4 items-center'>
-        <h2 className='bg-primary p-2 rounded-full text-xs text-center text-white px-2'>Join Membership just for ₹109.00/Month</h2>
+        <h2 className='bg-primary p-2 rounded-full text-xs text-center text-white px-2'>Join Membership just for ₹109.00 / 3 Months</h2>
         <UserButton />
       </div>
     </div>
