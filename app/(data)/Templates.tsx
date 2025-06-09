@@ -1,26 +1,27 @@
-export default  [
+export default [
     {
-        name:'Blog Title',
-        desc:'An AI tool that generate blog title depends on yout blog information',
-        category:'Blog',
-        icon:'https://cdn-icons-png.flaticon.com/128/4186/4186534.png',
-        aiPrompt:'Give me 5 blog topic idea in bullet wise only based on give niche & outline and give me result in Rich text editor format',
-        slug:'generate-blog-title',
-        form:[
+        name: 'Blog Title',
+        desc: 'An AI tool that generate blog title depends on yout blog information',
+        category: 'Blog',
+        icon: 'https://cdn-icons-png.flaticon.com/128/4186/4186534.png',
+        aiPrompt: 'Give me 5 blog topic idea in bullet wise only based on give niche & outline and give me result in Rich text editor format',
+        slug: 'generate-blog-title',
+        form: [
             {
-                label:'Enter your blog niche',
-                field:'input',
-                name:'niche',
-                required:true
+                label: 'Enter your blog niche',
+                field: 'input',
+                name: 'niche',
+                required: true
             },
             {
-                label:'Enter blog outline',
-                field:'textarea',
-                name:'outline',
-                
+                label: 'Enter blog outline',
+                field: 'textarea',
+                name: 'outline',
+
             }
         ]
     },
+
     {
         name: 'Blog Content',
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
@@ -33,7 +34,7 @@ export default  [
                 label: 'Enter your blog topic',
                 field: 'input',
                 name: 'topic',
-                required:true
+                required: true
             },
             {
                 label: 'Enter blog Outline here',
@@ -42,6 +43,7 @@ export default  [
             }
         ]
     },
+
     {
         name: 'Blog Topic Ideas',
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
@@ -54,10 +56,87 @@ export default  [
                 label: 'Enter your Niche',
                 field: 'input',
                 name: 'niche',
-                required:true
+                required: true
             },
         ]
     },
+
+    {
+        name: 'Diet Meal Planner',
+        desc: 'An AI tool that generates a personalized weekly meal plan based on your weight, height, gender, food preference, calorie goals, and region.',
+        category: 'Health & Diet',
+        icon: 'https://icons.veryicon.com/png/o/food--drinks/light-diet/light-food.png',
+        aiPrompt: `Generate a healthy and personalized 7-day meal plan based on the user's details: weight, height, gender, country, food preference (vegetarian or non-vegetarian), calorie goals (weight loss, maintenance, or weight gain), food dislikes, and preferred cuisines.
+            The meal plan should be organized by days (Monday to Sunday), and for each day provide meal suggestions for:
+                - Breakfast
+                - Lunch
+                -Evening snacks
+                - Dinner
+
+            Start with a short introduction about the user’s profile and calorie goals.
+            Format the output using Markdown or simple rich text with headings and bold text, suitable for display in a WYSIWYG rich text editor. Do not use RTF code or curly braces formatting.`,
+        slug: 'generate-diet-meal-plan',
+        form: [
+            {
+                label: 'Enter your weight (in kg)',
+                field: 'input',
+                name: 'weight',
+                required: true
+            },
+            {
+                label: 'Enter your height (in cm)',
+                field: 'input',
+                name: 'height',
+                required: true
+            },
+            {
+                label: 'Select your gender',
+                field: 'select',
+                name: 'gender',
+                required: true,
+                options: ['Male', 'Female', 'Other']
+            },
+            {
+                label: 'Food Preference',
+                field: 'select',
+                name: 'foodType',
+                required: true,
+                options: ['Vegetarian', 'Non-Vegetarian']
+            },
+            {
+                label: 'Enter your country',
+                field: 'input',
+                name: 'country',
+                required: true
+            },
+            {
+                label: 'Select your calorie goal',
+                field: 'select',
+                name: 'goal',
+                required: true,
+                options: ['Weight Loss', 'Maintenance', 'Weight Gain']
+            },
+            {
+                label: 'Do you have any food allergies or dietary restrictions?',
+                field: 'textarea',
+                name: 'allergies'
+            },
+            {
+                label: 'List any food items you dislike',
+                field: 'textarea',
+                name: 'dislikes'
+            },
+            {
+                label: 'Preferred cuisines (optional)',
+                field: 'select',
+                name: 'cuisines',
+                required: false,
+                multiple: true,
+                options: ['Indian', 'Italian', 'Chinese', 'Mexican', 'Thai', 'Mediterranean']
+            }
+        ]
+    },
+
     {
         name: 'Youtube SEO Title',
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
@@ -70,7 +149,7 @@ export default  [
                 label: 'Enter your youtube video topic keyowords',
                 field: 'input',
                 name: 'keywords',
-                required:true
+                required: true
             },
             {
                 label: 'Enter youtube description Outline here',
@@ -80,6 +159,7 @@ export default  [
         ]
 
     },
+
     {
 
         name: 'Youtube Description',
@@ -93,7 +173,7 @@ export default  [
                 label: 'Enter your blog topic/title',
                 field: 'input',
                 name: 'topic',
-                required:true
+                required: true
             },
             {
                 label: 'Enter youtube Outline here',
@@ -116,7 +196,7 @@ export default  [
                 label: 'Enter your youtube title',
                 field: 'input',
                 name: 'title',
-                required:true
+                required: true
             },
             {
                 label: 'Enter youtube video Outline here (Optional)',
@@ -138,7 +218,7 @@ export default  [
                 label: '🤖 Provide your Article/Blogpost or any other content to rewrite.',
                 field: 'textarea',
                 name: 'article',
-                required:true
+                required: true
             }
         ]
     },
@@ -169,7 +249,7 @@ export default  [
                 label: 'Enter your text to add emojis',
                 field: 'textarea',
                 name: 'outline',
-                required:true
+                required: true
             }
         ]
     },
@@ -178,7 +258,7 @@ export default  [
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
         icon: 'https://cdn-icons-png.flaticon.com/128/15713/15713420.png',
         category: 'blog',
-       
+
         slug: 'instagram-post-generator',
         aiPrompt: 'Generate 3 Instagram post depends on a given keywords and give output in  in rich text editor format',
         form: [
@@ -186,9 +266,9 @@ export default  [
                 label: 'Enter Keywords for your post',
                 field: 'input',
                 name: 'keywords',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
@@ -196,7 +276,7 @@ export default  [
         desc: 'An AI tool that serves as your personal blog post title writer, generating catchy and viral-worthy titles in your chosen language.',
         icon: 'https://cdn-icons-png.flaticon.com/128/7045/7045432.png',
         category: 'blog',
-       
+
         slug: 'instagram-hash-tag-generator',
         aiPrompt: 'Generate 15 Instagram hash tag depends on a given keywords and give output in  in rich text editor format',
         form: [
@@ -204,9 +284,9 @@ export default  [
                 label: 'Enter Keywords for your instagram hastag',
                 field: 'input',
                 name: 'keywords',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
@@ -214,7 +294,7 @@ export default  [
         desc: 'An AI tool that generate New and trending instagram idea depends on your niche',
         icon: 'https://cdn-icons-png.flaticon.com/128/1029/1029183.png',
         category: 'instagram',
-       
+
         slug: 'instagram-post-idea-generator',
         aiPrompt: 'Generate 5-10 Instagram idea depends on niche with latest trend and give output in  in rich text editor format',
         form: [
@@ -222,17 +302,17 @@ export default  [
                 label: 'Enter Keywords / Niche for your instagram idea',
                 field: 'input',
                 name: 'keywords',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
         name: 'English Grammer Check',
         desc: 'AI Model to Correct your english grammer by providing the text',
-        icon:'https://cdn-icons-png.flaticon.com/128/12596/12596700.png',
+        icon: 'https://cdn-icons-png.flaticon.com/128/12596/12596700.png',
         category: 'english',
-       
+
         slug: 'english-grammer-checker',
         aiPrompt: 'Rewrite the inputText by correcting the grammer and give output in  in rich text editor format',
         form: [
@@ -240,17 +320,17 @@ export default  [
                 label: 'Enter text to correct the grammer',
                 field: 'input',
                 name: 'inputText',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
         name: 'Write Code',
         desc: 'AI Model to generate programming code in any language',
-        icon:'https://cdn-icons-png.flaticon.com/128/6062/6062646.png',
+        icon: 'https://cdn-icons-png.flaticon.com/128/6062/6062646.png',
         category: 'Coding',
-       
+
         slug: 'write-code',
         aiPrompt: 'Depends on user codeDescription write a code and give output in  in rich text editor format in code block ',
         form: [
@@ -258,17 +338,17 @@ export default  [
                 label: 'Enter description of code you want along with Programming Lang',
                 field: 'textarea',
                 name: 'codeDesscripton',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
         name: 'Explain Code',
         desc: 'AI Model to explain programming code in any language',
-        icon:'https://cdn-icons-png.flaticon.com/128/8488/8488751.png',
+        icon: 'https://cdn-icons-png.flaticon.com/128/8488/8488751.png',
         category: 'Coding',
-       
+
         slug: 'explain-code',
         aiPrompt: 'Depends on user codeDescription explain code line by line and give output in  in rich text editor format in code block ',
         form: [
@@ -276,17 +356,17 @@ export default  [
                 label: 'Enter code which you want to understand',
                 field: 'textarea',
                 name: 'codeDesscripton',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
         name: 'Code Bug Detector',
         desc: 'This tool analyzes your input, like error messages and code snippets, to pinpoint and fix bugs, offering detailed solutions and alternatives in a straightforward, user-friendly way.',
-        icon:'https://cdn-icons-png.flaticon.com/128/4426/4426267.png',
+        icon: 'https://cdn-icons-png.flaticon.com/128/4426/4426267.png',
         category: 'code-bug-detector',
-       
+
         slug: 'code-bug-detector',
         aiPrompt: 'Depends on user codeInput find bug in code and give solution and give output in  in rich text editor format in code block ',
         form: [
@@ -294,17 +374,17 @@ export default  [
                 label: 'Enter code which you want to test bug',
                 field: 'textarea',
                 name: 'codeInput',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
         name: 'Tagline Generator',
         desc: 'Struggling to find the perfect tagline for your brand? Let our AI-tool assist you in creating a tagline that stands out.',
-        icon:'https://cdn-icons-png.flaticon.com/128/2178/2178616.png',
+        icon: 'https://cdn-icons-png.flaticon.com/128/2178/2178616.png',
         category: 'Marketting',
-       
+
         slug: 'tagline-generator',
         aiPrompt: 'Depends on user productName and outline generate catchy 5-10 tagline for the business product and give output  in rich text editor format ',
         form: [
@@ -312,23 +392,23 @@ export default  [
                 label: 'Product/Brand Name',
                 field: 'input',
                 name: 'productName',
-                required:true
+                required: true
             },
             {
                 label: 'What you are selling / Marketting',
                 field: 'textarea',
                 name: 'outline',
-                required:true
+                required: true
             },
-           
+
         ]
     },
     {
         name: 'Product Description',
         desc: 'This is your AI-powered SEO expert, creating captivating and keyword-rich e-commerce product descriptions to boost your online sales.',
-        icon:'https://cdn-icons-png.flaticon.com/128/679/679922.png',
+        icon: 'https://cdn-icons-png.flaticon.com/128/679/679922.png',
         category: 'Marketting',
-       
+
         slug: 'product-description',
         aiPrompt: 'Depends on user productName and description generate small description for product for e-commer business give output  in rich text editor format  ',
         form: [
@@ -336,15 +416,15 @@ export default  [
                 label: 'Product Name',
                 field: 'input',
                 name: 'productName',
-                required:true
+                required: true
             },
             {
                 label: 'Product Details',
                 field: 'textarea',
                 name: 'outline',
-                required:true
+                required: true
             },
-           
+
         ]
     },
 ]

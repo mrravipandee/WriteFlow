@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["cdn-icons-png.flaticon.com"],
-  },
+    domains: ["cdn-icons-png.flaticon.com", "icons.veryicon.com"],
+  }
 };
 
 export default nextConfig;

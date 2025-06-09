@@ -7,20 +7,24 @@ import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
-interface props {
+interface Props {
   aiOutput: string;
 }
 
-const OutputSection = ({ aiOutput }: props) => {
+const OutputSection = ({ aiOutput }: Props) => {
   const editorRef = useRef<Editor>(null);
 
   useEffect(() => {
     const editorInstance = editorRef.current?.getInstance();
 
     if (editorInstance && typeof aiOutput === 'string') {
-      editorInstance.setMarkdown(aiOutput);
+      try {
+        editorInstance.setMarkdown(aiOutput);
+      } catch (error) {
+        console.error('Failed to set editor content:', error);
+      }
     } else {
-      console.warn("⚠️ aiOutput is not a string:", aiOutput);
+      console.warn("⚠️ aiOutput is not a string or editor not ready:", aiOutput);
     }
   }, [aiOutput]);
 
@@ -29,11 +33,11 @@ const OutputSection = ({ aiOutput }: props) => {
     const markdown = editorInstance?.getMarkdown();
 
     if (markdown) {
-      navigator.clipboard.writeText(markdown).then(() => {
-        toast.success('Copied to clipboard!');
-      }).catch(() => {
-        toast.error('Failed to copy');
-      });
+      navigator.clipboard.writeText(markdown)
+        .then(() => toast.success('Copied to clipboard!'))
+        .catch(() => toast.error('Failed to copy'));
+    } else {
+      toast.error('Nothing to copy');
     }
   };
 
@@ -42,7 +46,11 @@ const OutputSection = ({ aiOutput }: props) => {
       <Toaster position="top-right" />
       <div className="flex justify-between items-center p-5">
         <h2 className="font-bold text-lg">Your Result</h2>
-        <Button onClick={handleCopy} className="flex items-center gap-2">
+        <Button 
+          onClick={handleCopy} 
+          className="flex items-center gap-2"
+          aria-label="Copy content to clipboard"
+        >
           <Copy className="w-4 h-4" />
           Copy
         </Button>
@@ -58,6 +66,7 @@ const OutputSection = ({ aiOutput }: props) => {
           const value = editorRef.current?.getInstance().getMarkdown();
           console.log('Content changed:', value);
         }}
+        spellCheck={false}
       />
     </div>
   );
