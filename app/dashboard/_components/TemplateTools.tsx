@@ -15,6 +15,8 @@ export interface TEMPLATE {
 }
 
 export interface FORM {
+  options: any;
+  multiple: boolean | undefined;
   label: string;
   field: string;
   name: string;
