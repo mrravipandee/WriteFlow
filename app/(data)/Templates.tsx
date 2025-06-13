@@ -427,4 +427,210 @@ export default [
 
         ]
     },
+    {
+        name: 'Daily Planner',
+        desc: 'Generate an optimized daily schedule based on your tasks and priorities',
+        category: 'Productivity',
+        icon: 'https://cdn-icons-png.flaticon.com/128/3652/3652191.png',
+        slug: 'daily-planner',
+        aiPrompt: 'Create a detailed daily schedule with time blocks for the following tasks. Include breaks and prioritize important tasks. Format for easy reading.',
+        form: [
+            {
+                label: 'List your tasks (separate with commas)',
+                field: 'textarea',
+                name: 'tasks',
+                required: true
+            },
+            {
+                label: 'Available hours (e.g., 8am-6pm)',
+                field: 'input',
+                name: 'hours',
+                required: true
+            },
+            {
+                label: 'Important tasks to prioritize',
+                field: 'input',
+                name: 'priorities'
+            }
+        ]
+    },
+    {
+        name: 'Email Writer',
+        desc: 'Compose professional emails quickly for any purpose',
+        category: 'Communication',
+        icon: 'https://cdn-icons-png.flaticon.com/128/732/732200.png',
+        slug: 'email-writer',
+        aiPrompt: 'Write a professional email based on the following details. Use appropriate tone and structure.',
+        form: [
+            {
+                label: 'Email purpose (e.g., follow-up, request, complaint)',
+                field: 'input',
+                name: 'purpose',
+                required: true
+            },
+            {
+                label: 'Key points to include',
+                field: 'textarea',
+                name: 'points',
+                required: true
+            },
+            {
+                label: 'Tone (formal, friendly, etc.)',
+                field: 'select',
+                name: 'tone',
+                options: ['Formal', 'Friendly', 'Persuasive', 'Apologetic']
+            }
+        ]
+    },
+    {
+        name: 'Meeting Notes Summarizer',
+        desc: 'Convert lengthy meeting notes into concise summaries',
+        category: 'Productivity',
+        icon: 'https://cdn-icons-png.flaticon.com/128/3050/3050520.png',
+        slug: 'meeting-summarizer',
+        aiPrompt: 'Summarize these meeting notes into key points, decisions, and action items. Remove unnecessary details.',
+        form: [
+            {
+                label: 'Paste your meeting notes',
+                field: 'textarea',
+                name: 'notes',
+                required: true
+            },
+            {
+                label: 'Important topics to highlight',
+                field: 'input',
+                name: 'topics'
+            }
+        ]
+    },
+    {
+        name: 'Personal Finance Advisor',
+        desc: 'Get personalized financial advice and budgeting tips',
+        category: 'Finance',
+        icon: 'https://cdn-icons-png.flaticon.com/128/2933/2933245.png',
+        slug: 'finance-advisor',
+        aiPrompt: 'Provide financial advice based on the user\'s income, expenses, and goals. Include budgeting tips and savings strategies.',
+        form: [
+            {
+                label: 'Monthly income',
+                field: 'input',
+                name: 'income',
+                required: true
+            },
+            {
+                label: 'Monthly expenses',
+                field: 'textarea',
+                name: 'expenses',
+                required: true
+            },
+            {
+                label: 'Financial goals',
+                field: 'input',
+                name: 'goals'
+            }
+        ]
+    },
+    {
+        name: 'Quick Recipe Generator',
+        desc: 'Get meal ideas based on ingredients you have',
+        category: 'Food',
+        icon: 'https://cdn-icons-png.flaticon.com/128/3081/3081985.png',
+        slug: 'quick-recipes',
+        aiPrompt: 'Suggest 3 simple recipes that can be made with these ingredients. Include preparation time and steps.',
+        form: [
+            {
+                label: 'Ingredients you have (separate with commas)',
+                field: 'textarea',
+                name: 'ingredients',
+                required: true
+            },
+            {
+                label: 'Dietary restrictions',
+                field: 'input',
+                name: 'restrictions'
+            }
+        ]
+    },
+    {
+        name: 'Fitness Routine Generator',
+        desc: 'Create personalized workout plans based on your goals',
+        category: 'Fitness',
+        icon: 'https://cdn-icons-png.flaticon.com/128/2936/2936886.png',
+        slug: 'fitness-routine',
+        aiPrompt: 'Create a weekly fitness routine based on the user\'s goals, available equipment, and time commitment.',
+        form: [
+            {
+                label: 'Fitness goal',
+                field: 'select',
+                name: 'goal',
+                options: ['Weight Loss', 'Muscle Gain', 'Endurance', 'General Fitness'],
+                required: true
+            },
+            {
+                label: 'Available equipment',
+                field: 'input',
+                name: 'equipment'
+            },
+            {
+                label: 'Days per week',
+                field: 'select',
+                name: 'days',
+                options: ['3', '4', '5', '6']
+            }
+        ]
+    },
+    {
+        name: 'Travel Itinerary Planner',
+        desc: 'Generate detailed travel plans for your trips',
+        category: 'Travel',
+        icon: 'https://cdn-icons-png.flaticon.com/128/1809/1809516.png',
+        slug: 'travel-planner',
+        aiPrompt: 'Create a detailed travel itinerary including attractions, restaurants, and transportation options based on the destination and preferences.',
+        form: [
+            {
+                label: 'Destination',
+                field: 'input',
+                name: 'destination',
+                required: true
+            },
+            {
+                label: 'Trip duration',
+                field: 'input',
+                name: 'duration',
+                required: true
+            },
+            {
+                label: 'Interests (e.g., history, food, nature)',
+                field: 'input',
+                name: 'interests'
+            }
+        ]
+    },
+    {
+        name: 'Learning Path Generator',
+        desc: 'Create personalized learning paths for any skill',
+        category: 'Education',
+        icon: 'https://cdn-icons-png.flaticon.com/128/2232/2232688.png',
+        slug: 'learning-path',
+        aiPrompt: 'Design a step-by-step learning path for the requested skill, including resources and time estimates for each step.',
+        form: [
+            {
+                label: 'Skill/subject to learn',
+                field: 'input',
+                name: 'skill',
+                required: true
+            },
+            {
+                label: 'Current level',
+                field: 'select',
+                name: 'level',
+                options: ['Beginner', 'Intermediate', 'Advanced']
+            },
+            {
+                label: 'Time available per week',
+                field: 'input',
+                name: 'time'
+            }
+        ]
+    }
 ]
