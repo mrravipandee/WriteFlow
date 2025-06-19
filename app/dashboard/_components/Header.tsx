@@ -22,7 +22,7 @@ const Header = () => {
         <div className="container mx-auto px-4 py-3 md:py-4">
           <div className="flex items-center justify-between gap-4">
             {/* Logo - Hidden on mobile */}
-            <div className="hidden md:flex items-center">
+            <div className="lg:hidden block md:flex items-center">
               <div className="flex items-center">
                 <Sparkles className="h-6 w-6 text-[#5142b5]" />
                 <span className="ml-2 text-xl font-semibold text-gray-800">WriteFlow</span>

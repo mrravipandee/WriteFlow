@@ -44,7 +44,7 @@ const SearchSections = ({ onSearchInput }: SearchSectionsProps) => {
               <Search className="text-purple-200 mr-3 flex-shrink-0" size={22} />
               <input
                 type="text"
-                placeholder="Search templates (e.g., 'professional email', 'React component', 'blog outline')"
+                placeholder="Search templates (e.g., 'Email', 'Code snippeds', 'blog outline & description')"
                 onChange={(e) => onSearchInput(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
